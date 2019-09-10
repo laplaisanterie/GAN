@@ -20,9 +20,10 @@ GAN을 이해하기 위해서는 Generator와 Discriminator의 관계를 이해�
 또한 이들은 입력데이터로 사용하는 random noise인 z의 의미를 발견했습니다. z값을 살짝 바꾸면, 생성되는 이미지가 그것에 감응하여 살짝 변하게 되는 vertor arithmetic의 개념을 찾아낸 것입니다.
 
 
-* UnSupervised Representation Learning with Deep Convolutional GANs(paper)
+> UnSupervised Representation Learning with Deep Convolutional GANs(paper)
+>
+> <https://arxiv.org/pdf/1511.06434.pdf>
 
-     <https://arxiv.org/pdf/1511.06434.pdf>
 
 나머지 구조는 기존의 GAN과 동일하므로 이 글에서는 핵심인 Generator 네트위크 구조에 대한 설명만 적겠습니다. 연구진들은 다양한 실험을 통해 최적의 결과를 나타내는 Generator 네트워크 구조를 알아냈고, 그 내용은 다음과 같습니다.
 
