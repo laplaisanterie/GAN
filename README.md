@@ -17,9 +17,9 @@ GAN을 이해하기 위해서는 Generator와 Discriminator의 관계를 이해�
 ## 1. DCGAN
 2014년 처음 발표된 original GAN은 MNIST 같은 비교적 단순한 이미지는 잘 학습했지만, CIFAR-10 같은 복잡한 이미지에 대해서는 그렇게 좋은 이미지를 생성하지 못했습니다. Alec Radford 등이 2015년에 발표한 DCGAN(Deep Convolutional GAN)은 기존의 GAN에 CNN을 적용하여 네트워크 구조를 발전시켰고 최초로 고화질 영상을 생성했습니다. 
 
-* UnSupervised Representation Learning with Deep Convolutional GANs
+* UnSupervised Representation Learning with Deep Convolutional GANs(paper)
 
-<https://arxiv.org/pdf/1511.06434.pdf>
+      <https://arxiv.org/pdf/1511.06434.pdf>
 
 연구진들은 다양한 실험을 통해 최적의 결과를 나타내는 모델의 구조를 알아냈고, 그 내용은 다음과 같습니다.
 1. Max pooling layer를 없애고 strided convolution을 통해 feature map의 크기를 조절한다.
