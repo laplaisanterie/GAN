@@ -24,7 +24,7 @@ GAN을 이해하기 위해서는 Generator와 Discriminator의 관계를 이해�
 
      <https://arxiv.org/pdf/1511.06434.pdf>
 
-나머지 구조는 GAN과 동일하므로 이 글에서는 핵심인 Generator 네트위크 구조에 대한 설명만 적겠습니다. 연구진들은 다양한 실험을 통해 최적의 결과를 나타내는 Generator 네트워크 구조를 알아냈고, 그 내용은 다음과 같습니다.
+나머지 구조는 기존의 GAN과 동일하므로 이 글에서는 핵심인 Generator 네트위크 구조에 대한 설명만 적겠습니다. 연구진들은 다양한 실험을 통해 최적의 결과를 나타내는 Generator 네트워크 구조를 알아냈고, 그 내용은 다음과 같습니다.
 
 1. Max pooling layer를 없애고 strided convolution을 통해 feature map의 크기를 조절한다.
 2. Batch Normalization을 적용한다.
