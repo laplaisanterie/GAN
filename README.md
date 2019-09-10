@@ -17,14 +17,14 @@ GAN을 이해하기 위해서는 Generator와 Discriminator의 관계를 이해�
 ## 1. DCGAN
 ### 1_1. 구조
 2014년 처음 발표된 original GAN은 MNIST 같은 비교적 단순한 이미지는 잘 학습했지만, CIFAR-10 같은 복잡한 이미지에 대해서는 그렇게 좋은 이미지를 생성하지 못했습니다. Alec Radford 등이 2015년에 발표한 DCGAN(Deep Convolutional GAN)은 기존의 GAN에 CNN을 적용하여 네트워크 구조를 발전시켰고 최초로 고화질 영상을 생성했습니다. 
+또한 이들은 입력데이터로 사용하는 random noise인 z의 의미를 발견했습니다. z값을 살짝 바꾸면, 생성되는 이미지가 그것에 감응하여 살짝 변하게 되는 vertor arithmetic의 개념을 찾아낸 것입니다.
 
 
 * UnSupervised Representation Learning with Deep Convolutional GANs(paper)
 
      <https://arxiv.org/pdf/1511.06434.pdf>
 
-
-연구진들은 다양한 실험을 통해 최적의 결과를 나타내는 모델의 구조를 알아냈고, 그 내용은 다음과 같습니다.
+나머지 구조는 GAN과 동일하므로 이 글에서는 핵심인 Generator 네트위크 구조에 대한 설명만 적겠습니다. 연구진들은 다양한 실험을 통해 최적의 결과를 나타내는 Generator 네트워크 구조를 알아냈고, 그 내용은 다음과 같습니다.
 
 1. Max pooling layer를 없애고 strided convolution을 통해 feature map의 크기를 조절한다.
 2. Batch Normalization을 적용한다.
@@ -34,7 +34,9 @@ GAN을 이해하기 위해서는 Generator와 Discriminator의 관계를 이해�
 
 ![Alt text](/imgs/DCGANstructure.png)
 
-Generator는 latent variable으로부터 64×64 크기의 최종 이미지를 출력해야합니다. Convolution layer로 넘어간 출력은 feature map의 크기를 키워야하기 때문에 fractionally strided convolution이 필요합니다. 일반적으로 1 이상의 stride를 사용하면 pooling과 마찬가지로 출력의 크기를 줄이는 효과를 얻을 수 있습니다. 
+Generator는 latent variable으로부터 64×64 크기의 최종 이미지를 출력해야합니다. Convolution layer로 넘어간 출력은 feature map의 크기를 키워야하기 때문에 fractionally strided convolution을 사용합니다. 일반적으로 1 이상의 stride를 사용하면 pooling과 마찬가지로 출력의 크기를 줄이는 효과를 얻을 수 있습니다. 
 
 ### 1_2. 구현
 위의 논문과 이론을 기반으로 DCGAN의 네트워크 구조를 코드로 구현하고 학습시켜보았습니다. 학습데이터는 Kaggle의 자동차 이미지 데이터셋을 사용하였으며, 이미지에 대한 별도의 전처리는 하지 않았고 이미지의 값을 [-1,1]의 범위로 scaling하여 사용하였습니다.
+
+![Alt text](/imgs/CAR_GAN.png)
