@@ -19,7 +19,7 @@ GAN을 이해하기 위해서는 Generator와 Discriminator의 관계를 이해�
 
 * UnSupervised Representation Learning with Deep Convolutional GANs(paper)
 
-      <https://arxiv.org/pdf/1511.06434.pdf>
+     <https://arxiv.org/pdf/1511.06434.pdf>
 
 연구진들은 다양한 실험을 통해 최적의 결과를 나타내는 모델의 구조를 알아냈고, 그 내용은 다음과 같습니다.
 1. Max pooling layer를 없애고 strided convolution을 통해 feature map의 크기를 조절한다.
