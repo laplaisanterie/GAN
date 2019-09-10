@@ -19,8 +19,6 @@ GAN을 이해하기 위해서는 Generator와 Discriminator의 관계를 이해�
 또한 이들은 입력데이터로 사용하는 random noise인 z의 의미를 발견했습니다. z값을 살짝 바꾸면, 생성되는 이미지가 그것에 감응하여 살짝 변하게 되는 vertor arithmetic의 개념을 찾아낸 것입니다.
 
 
-> UnSupervised Representation Learning with Deep Convolutional GANs(paper)
->
 > <https://arxiv.org/pdf/1511.06434.pdf>
 
 
