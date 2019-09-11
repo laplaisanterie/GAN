@@ -63,3 +63,12 @@ GAN은 기존 어떤 Generator보다 훨씬 더 실제와 가까운 이미지를
 
 <img src="/imgs/cGANstructure.png" width="60%" height="60%">
 
+
+cGAN의 아이디어는 간단합니다. 입력값 z에 이미지 생성에 관련된 조건을 추가하고 이것을 통해 이미지 생성을 컨트롤할 수 있다면, 원하는 방향으로 이미지를 생성할 수 있습니다. Generator와 Discriminator에 특정 조건을 나타내는 y를 추가해준다고 생각해봅시다. y는 다양한 형태를 가집니다. 예를 들어, MNIST를 학습하여 GAN으로 숫자이미지를 생성하는데 원하는 숫자를 골라서 생성하고 싶습니다. 그렇다면 숫자에 해당하는 label을 추가로 넣어주면 됩니다. MNIST데이터는 10가지의 숫자 라벨링이 있기 때문에 y 역시 10bit가 됩니다. 위의 그림에서도 알 수 있듯이 기존의 GAN에 조건 y만 추가되었음을 확인할 수 있습니다. loss function 역시 y가 들어간 조건부확률을 사용하는 것을 제외하면 동일합니다.
+
+
+### 2_2. 구현
+cGAN은 따로 데이터를 구해서 구현하지 않고 MNIST 데이터로 실습을 진행했습니다. one-hot encoding한 class label을 조건으로 사용해 원하는 숫자이미지를 생성해보았습니다. Discriminator과 Generator에 조건을 embedding하여 concat할 수 있도록 class를 만들었습니다. 학습된 모델에 label이 조정된 z값을 입력값으로 넣었더니 원하는 숫자의 이미지를 생성해낼 수 있었습니다. 
+
+<img src="/imgs/MNIST_cGAN.png" width="60%" height="60%">
+
