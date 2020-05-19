@@ -72,3 +72,37 @@ cGAN은 따로 데이터를 구해서 구현하지 않고 MNIST 데이터로 실
 
 <img src="/imgs/MNIST_cGAN.png" width="50%" height="50%">
 
+## 3.Disco-GAN
+### 3_1. 구조
+Disco-GAN의 경우에는 2개의 Generator와 2개의 Discriminator를 사용합니다. <br> 
+Generator는 rgb 64x64 사진을 인풋으로 주게되면 64x64이미지를 결과값으로 보여줍니다. Generator 내부에는 총 8개의 레이어가 있습니다. 4번째 layer까지는 Conv2d로 사이즈를 줄이고 다음부터는 transconv2d로 사이즈를 늘렸습니다. 그리고 각 레이어마다 batch normalization이 있어서 학습효율을 높였습니다. <br>
+Discriminator는 이미지를 비교해서 fake인지 real인지 구분해 줍니다. Discriminator의 경우 총 5 레이어로 되어있고 특이한 점은 forward함수인데 앞의 Generator의 경우에는 결과만 return해주는데 여기는 각 레이어를 통과하는 feature도 return해줍니다. 이는 후에 loss를 계산하는데 사용되게 됩니다.
+
+<img src="/imgs/disco-gan.png" width="60%" height="60%">
+
+G_ab는 A클래스의 이미지를 통해서 B이미지를 생성합니다. 마찬가지로 G_ba는 B클래스의 이미지를 통해서 A이미지를 생성합니다. D_a,D_b는 각각 Generator로부터 생성된 fake 이미지들을 인풋값으로 사용되었던 real 이미지들과 비교합니다. 기존의 gan과 구별되는 가장 중요한 차이점은 비지도 학습이라는 것입니다. 기존의 gan은 제너레이터로 생성된 결과값이 어떤 데이터인지 알려주는 라벨이 존재해서 모델이 이를 기반으로 학습을 하게 됩니다.
+
+### 3_2. 구현
+학습시킬 이미지로 사과와 바나나 이미지를 kaggle로 부터 불러왔습니다. 학습 초기에는 사과와 바나나이미지를 제대로 생성을 못하지만 학습을 마치고 나면 사과가 가르키는 방향으로 바나나도 같은 방향으로 가르킵니다.
+<img src="/imgs/before.png" width="60%" height="60%">
+<img src="/imgs/after.png" width="60%" height="60%"> <br>
+이와 별개로 저희가 직접 사람 이미지를 찍어서 인풋값으로 넣어 봤습니다. 결과는 다음과 같습니다. 어느정도 학습이 잘 된 것 같습니다.
+
+<img src="/imgs/person.png" width="60%" height="60%">
+
+## 4 Pix2Pix
+### 4_1. 구조
+앞선 Gan은 기존의 이미지를 만들어내는 것인 반면 Pix2Pix는 기존의 이미지에 채색을 하거나, 형태만 유지한 태 이미지를 변환하는 Gan입니다. Disco_Gan과 큰 차이점은 paired데이터가 필요한 지도학습이라는 것입니다.
+<img src="/imgs/pix_g.png" width="60%" height="60%"> <br>
+Generator의 구조는 위와 같습니다. U-Net 구조를 하고 있는 것을 확인할 수 있습니다. Generator는 입력 이미지를 받아서 변환을 시켜 출력 이미지를 생성하는 것이 주 목표입니다. 인코딩 과정에서는 그림의 맥락을 이해하기 위해, feature-map의 크기를 줄여가면서 핵심 representation만 추출합니다. 그 후에 디코딩 과정을 통해 원래의 이미지를 복원하는데 복원하는 과정에서 인코딩 과정에서 날아간 정보와 선명성을 확보하기 위해 skip connection을 사용합니다.
+
+<img src="/imgs/pix_d.png" width="60%" height="60%"> <br>
+Discriminator의 구조는 위와 같습니다. 앞서 설명드린 Discriminator와 측별히 다른점은 없습니다.
+
+### 4_2. 구현
+paired 이미지 데이터셋을 따로 찾기가 어려워서 crawling을 통해서 피카츄의 사진을 다운을 받은 후 이를 흑백으로 직접 바꾸어줬습니다. 그리고 이를 paired 데이터로 사용해서 학습을 진행했습니다. 과적합이 의심이 가긴 하지만 결과는 아래와 같습니다. 상당히 복원을 잘하는 것으로 보입니다.
+
+<img src="/imgs/pix_1.png" width="60%" height="60%"> <br>
+이와 별개로 저희가 직접 피카츄를 그려서 인풋으로 주어보았습니다. 결과는 다음과 같습니다. 결과를 보았을 때, 명암이 아주 진하면 검은색, 적당하면 빨간색, 연하면 노란색으로 바꾸도록 모델이 학습한 것으로 보입니다.
+
+<img src="/imgs/pix_2.png" width="60%" height="60%"> <br>
